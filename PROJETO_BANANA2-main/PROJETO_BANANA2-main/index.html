@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AvancaTech - Principal</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Banana <span class="neon-blue">AVANCATECH TECNOLOGIA</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Principal</a></li>
+                <li><a href="produto.html">Produtos</a></li>
+                <li><a href="historia.html">Nossa História</a></li>
+                <li><a href="contato.html">Fale Conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="secao-ai">
+            <div class="conteudo-ai">
+                <h1>AI</h1>
+                <p class="citacao-ai">"A Inteligência Artificial não é mais o futuro, é o agora. Ela automatiza
+                    processos, analisa volumes massivos de dados e cria soluções personalizadas para problemas
+                    complexos."</p>
+            </div>
+            <div class="imagem-ai">
+                <img src="./img/arvore.jpg" alt="Árvore Tecnológica" class="arvore-img">
+            </div>
+        </section>
+
+        <section class="container-banner">
+            <div class="moldura-banner">
+                <button class="seta" onclick="mudarSlide(-1)">&#10094;</button>
+
+                <div class="wrapper-img">
+                    <img src="./img/tecnologia3.jpg" alt="Infraestrutura de Redes" class="banner-img active">
+
+                    <img src="./img/tecnologia2.jpg" alt="Cerebro tecnologico" class="banner-img"
+                        style="display: none;">
+
+                    <img src="./img/tecnologia1.jpg" alt="Equipamento Tecnogico" class="banner-img"
+                        style="display: none;">
+                </div>
+
+                <button class="seta" onclick="mudarSlide(1)">&#10095;</button>
+            </div>
+
+            <div class="controles">
+                <button id="btn-play-pause" onclick="alternarAutoPlay()">&#10074;&#10074;</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AvancaTech</p>
+        <div class="social-grid">
+            <a href="#" class="btn-cyber facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="btn-cyber linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="btn-cyber instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        let autoPlayTimer = null;
+        let executando = true;
+
+        function mostrarSlide(index) {
+            const slides = document.querySelectorAll('.banner-img');
+
+            if (index >= slides.length) { slideIndex = 0; }
+            if (index < 0) { slideIndex = slides.length - 1; }
+
+            slides.forEach(slide => {
+                slide.style.display = 'none';
+                slide.classList.remove('active');
+            });
+
+            slides[slideIndex].style.display = 'block';
+            slides[slideIndex].classList.add('active');
+        }
+
+        function mudarSlide(direcao) {
+            slideIndex += direcao;
+            mostrarSlide(slideIndex);
+            resetarTempo();
+        }
+
+        function iniciarAutoPlay() {
+            autoPlayTimer = setInterval(() => {
+                slideIndex++;
+                mostrarSlide(slideIndex);
+            }, 4000); // Muda a foto a cada 4 segundos
+        }
+
+        function alternarAutoPlay() {
+            const btn = document.getElementById('btn-play-pause');
+            if (executando) {
+                clearInterval(autoPlayTimer);
+                btn.innerHTML = "&#9654;"; // Desenha o ícone de Play
+                executando = false;
+            } else {
+                iniciarAutoPlay();
+                btn.innerHTML = "&#10074;&#10074;"; // Desenha o ícone de Pause
+                executando = true;
+            }
+        }
+
+        function resetarTempo() {
+            if (executando) {
+                clearInterval(autoPlayTimer);
+                iniciarAutoPlay();
+            }
+        }
+
+        window.onload = () => {
+            iniciarAutoPlay();
+        };
+    </script>
+
+</body>
+
+</html>
